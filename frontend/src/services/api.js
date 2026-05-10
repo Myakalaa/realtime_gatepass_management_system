@@ -89,7 +89,7 @@ import axios from "axios";
    localhost AND mobile devices on WiFi
 ====================================== */
 const BACKEND_PORT = 8000;
-export const BASE_URL = `http://${window.location.hostname}:${BACKEND_PORT}`;
+export const BASE_URL = process.env.REACT_APP_API_URL || `http://${window.location.hostname}:${BACKEND_PORT}`;
 
 const API = axios.create({
   baseURL: BASE_URL,
