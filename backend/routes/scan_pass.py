@@ -20,7 +20,7 @@ FINE_PER_HOUR = 100  # ₹100 per hour (or part of it)
 
 # Read the allowed Subnet from env (default to empty string to allow all if not set, or set to "192.168." to restrict)
 # By default, we will restrict to 192.168.1.7 subnet as user is using local IP. We can use "192.168." to allow any device on the local network.
-COLLEGE_IP_SUBNET = os.getenv("COLLEGE_IP_SUBNET", "192.168.")
+COLLEGE_IP_SUBNET = os.getenv("COLLEGE_IP_SUBNET", "")  # Empty = allow all networks
 
 @router.get("/{pass_id}")
 def scan_pass(pass_id: int, request: Request, db: Session = Depends(get_db)):

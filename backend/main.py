@@ -63,6 +63,13 @@ app.include_router(scan_router)
 app.include_router(receipts_router)
 
 # ====================================================
+# HEALTH CHECK / ROOT ENDPOINT
+# ====================================================
+@app.get("/")
+def read_root():
+    return {"message": "Gatepass System API is running successfully!"}
+
+# ====================================================
 # CREATE DEFAULT ADMIN USER
 # ====================================================
 def create_default_admin():

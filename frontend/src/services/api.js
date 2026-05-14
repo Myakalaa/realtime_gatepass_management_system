@@ -89,7 +89,16 @@ import axios from "axios";
    localhost AND mobile devices on WiFi
 ====================================== */
 const BACKEND_PORT = 8000;
-export const BASE_URL = process.env.REACT_APP_API_URL || `http://${window.location.hostname}:${BACKEND_PORT}`;
+const hostname = window.location.hostname;
+const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+
+// On localhost → connect to local backend on port 8000
+// On deployed (Vercel/mobile) → use same domain origin (no port)
+export const BASE_URL =
+  process.env.REACT_APP_API_URL ||
+  (isLocal
+    ? `http://localhost:${BACKEND_PORT}`
+    : window.location.origin);
 
 const API = axios.create({
   baseURL: BASE_URL,
