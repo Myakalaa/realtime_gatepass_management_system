@@ -108,7 +108,7 @@ const PassList = () => {
                 </div>
               </div>
 
-              {(p.status === "COMPLETED" || p.status === "APPROVED") && (
+              {["COMPLETED", "APPROVED", "ACTIVATED"].includes(p.status?.toUpperCase()) && (
                 <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '15px', display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
                   {p.qr_code_path && (
                     <div style={{ textAlign: 'center' }}>
