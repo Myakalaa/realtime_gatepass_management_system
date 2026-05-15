@@ -9,8 +9,8 @@ const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
 
 export const BASE_URL =
   process.env.REACT_APP_API_URL ||
-  (isLocal
-    ? `http://localhost:${BACKEND_PORT}`
+  (window.location.port === "3000"
+    ? `http://${window.location.hostname}:8000`
     : window.location.origin);
 
 const API = axios.create({

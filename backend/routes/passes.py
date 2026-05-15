@@ -36,10 +36,11 @@ def get_local_ip():
         return "localhost"
 
 LOCAL_IP = get_local_ip()
-PUBLIC_FRONTEND_URL = os.getenv(
-    "PUBLIC_FRONTEND_URL",
-    f"http://{LOCAL_IP}:3000"
-).rstrip("/")
+PUBLIC_FRONTEND_URL = os.getenv("PUBLIC_FRONTEND_URL")
+if PUBLIC_FRONTEND_URL:
+    PUBLIC_FRONTEND_URL = PUBLIC_FRONTEND_URL.rstrip("/")
+else:
+    PUBLIC_FRONTEND_URL = f"http://{LOCAL_IP}:3000"
 
 
 # ================= DATETIME PARSER =================

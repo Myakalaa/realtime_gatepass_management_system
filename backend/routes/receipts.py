@@ -22,8 +22,8 @@ def download_receipt(pass_id: int, db: Session = Depends(get_db)):
     if not gp:
         raise HTTPException(status_code=404, detail="Pass not found")
 
-    if gp.status != "COMPLETED":
-        raise HTTPException(status_code=400, detail="Receipt only available for completed passes")
+    if gp.status not in ["COMPLETED", "APPROVED", "ACTIVATED"]:
+        raise HTTPException(status_code=400, detail="Receipt only available for approved or completed passes")
 
     filename = f"receipt_{gp.id}.pdf"
     filepath = os.path.join(RECEIPT_DIR, filename)

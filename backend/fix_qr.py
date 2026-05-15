@@ -20,8 +20,18 @@ def fix_all():
     QR_DIR = os.path.join(BASE_DIR, "static", "qr")
     os.makedirs(QR_DIR, exist_ok=True)
 
-    # Use the frontend URL so mobile phones can scan and open the page
-    frontend_url = os.getenv("PUBLIC_FRONTEND_URL", "http://192.168.31.20:3000").rstrip("/")
+    import socket
+    def get_local_ip():
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            s.close()
+            return ip
+        except Exception:
+            return "localhost"
+
+    frontend_url = os.getenv("PUBLIC_FRONTEND_URL", f"http://{get_local_ip()}:3000").rstrip("/")
 
     count = 0
     for p in passes:
