@@ -62,8 +62,18 @@ def download_receipt(pass_id: int, db: Session = Depends(get_db)):
         c.drawString(3 * inch, y, value)
         y -= 0.25 * inch
 
+    # Add QR Code Image if exists
+    if gp.qr_code_path:
+        qr_img_path = os.path.join(BASE_DIR, gp.qr_code_path.lstrip("/"))
+        if os.path.exists(qr_img_path):
+            # Position it at the top right
+            c.drawImage(qr_img_path, width - 2.5 * inch, height - 2.8 * inch, width=1.8 * inch, height=1.8 * inch)
+            c.setFont("Helvetica-Bold", 8)
+            c.drawCentredString(width - 1.6 * inch, height - 2.9 * inch, "SCAN AT GATE")
+
     c.line(1 * inch, y - 0.1 * inch, width - 1 * inch, y - 0.1 * inch)
     y -= 0.5 * inch
+    c.setFont("Helvetica", 10)
     c.drawString(1 * inch, y, f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
     c.save()
